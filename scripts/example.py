@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 
 # Steps to run this code
 # 1) roslaunch baxter_moveit_tutorial moveit_init.launch
@@ -26,8 +26,8 @@ def moveit_baxter_example():
     right_current_pose = group.get_current_pose(end_effector_link='right_gripper').pose
 
     left_target_pose = left_current_pose
-    left_target_pose.position.x = left_current_pose.position.x - 0.1  # 0.1m = 10 cm
-    left_target_pose.position.z = left_current_pose.position.z - 0.1
+    left_target_pose.position.x = left_current_pose.position.x + 0.1  # 0.1m = 10 cm
+    left_target_pose.position.z = left_current_pose.position.z + 0.1
 
     right_target_pose = right_current_pose
     right_target_pose.position.x = right_current_pose.position.x + 0.1
@@ -38,10 +38,7 @@ def moveit_baxter_example():
 
     plan = group.plan()
 
-    if not plan.joint_trajectory.points:
-        print "[ERROR] No trajectory found"
-    else:
-        group.go(wait=True)
+    group.go(wait=True)
 
     # When finished shut down moveit_commander.
     moveit_commander.roscpp_shutdown()
